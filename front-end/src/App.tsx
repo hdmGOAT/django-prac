@@ -11,12 +11,38 @@ import { useEffect, useState } from "react";
   - use other python modules
 */
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 function App() {
+  const [data, setData] = useState([
+    {
+      id: 0,
+      title: "",
+      body: "",
+    },
+  ]);
+
   useEffect(() => {
-    console.log(import.meta.env.VITE_API_URL);
+    fetch(`${API_URL}/posts/`)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Http error" + response.status);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setData(data);
+      });
   });
 
-  return <></>;
+  return (
+    <div>
+      {data &&
+        data.map((item, index: number) => (
+          <div key={item.id}>{item.title}</div>
+        ))}
+    </div>
+  );
 }
 
 export default App;
