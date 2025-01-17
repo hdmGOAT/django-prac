@@ -156,11 +156,13 @@ function App() {
                   <input
                     className="border border-white-950 bg-inherit rounded-xl p-2 text-white"
                     id="title"
+                    defaultValue={selectedPost?.title}
                     placeholder="enter ur unique title"
                     onChange={handleChange}
                   ></input>
                   <textarea
                     id="body"
+                    defaultValue={selectedPost?.body}
                     placeholder="enter ur body here"
                     className="border border-white-950 bg-inherit rounded-xl p-2 text-white"
                     onChange={handleChange}
