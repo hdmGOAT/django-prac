@@ -32,6 +32,7 @@ function App() {
   const [input, setInput] = useState<any>();
 
   const [selectedPost, setSelectedPost] = useState<Post>();
+  const [isPostSelected, setIsPostSelected] = useState<Boolean>(false);
 
   const handleChange = (
     e:
@@ -42,6 +43,10 @@ function App() {
       ...prevInput,
       [e.target.id]: e.target.value,
     }));
+  };
+
+  const handlePostSelect = async (item: Post) => {
+    setSelectedPost(item);
   };
 
   const fetchData = async () => {
