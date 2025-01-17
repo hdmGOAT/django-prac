@@ -31,7 +31,7 @@ function App() {
 
   const [input, setInput] = useState<any>();
 
-  const [selectedPost, setSelectedPost] = useState<Post>();
+  const [selectedPost, setSelectedPost] = useState<Post | null>();
   const [isPostSelected, setIsPostSelected] = useState<Boolean>(false);
 
   const handleChange = (
@@ -46,7 +46,14 @@ function App() {
   };
 
   const handlePostSelect = async (item: Post) => {
-    setSelectedPost(item);
+    if (selectedPost !== item) {
+      setSelectedPost(item);
+      setIsPostSelected(true);
+      return;
+    }
+
+    setSelectedPost(null);
+    setIsPostSelected(false);
   };
 
   const fetchData = async () => {
@@ -105,9 +112,7 @@ function App() {
             <div
               className="flex text-white font-semibold font-serif flex-col bg-zinc-800 p-11 rounded-2xl"
               key={item.id}
-              onClick={() => {
-                setSelectedPost(item);
-              }}
+              onClick={() => handlePostSelect(item)}
             >
               <div className="flex">{item.title}</div>
               <div className="flex">{item.body}</div>
@@ -117,25 +122,64 @@ function App() {
           <p>No data available</p>
         )}
       </div>
-      <div className="flex flex-[8] h-screen items-center align-middle justify-center w-full">
-        <div className="flex flex-col flex-[8]  items-center align-middle justify-center bg-zinc-800 p-11 rounded-2xl space-y-8 w-full">
-          <h1 className="text-3xl font-extrabold text-white">Add a new Post</h1>
-          <div className="form flex flex-col space-y-3 w-96">
-            <input
-              className="border border-white-950 bg-inherit rounded-xl p-2 text-white"
-              id="title"
-              placeholder="enter ur unique title"
-              onChange={handleChange}
-            ></input>
-            <textarea
-              id="body"
-              placeholder="enter ur body here"
-              className="border border-white-950 bg-inherit rounded-xl p-2 text-white h-64"
-              onChange={handleChange}
-            ></textarea>
-            <button className="bg-white p-2 rounded-xl" onClick={handlePost}>
-              submit
-            </button>
+      <div className="flex flex-[8] flex-col h-screen items-center align-middle justify-center w-full">
+        <div className="flex flex-col flex-[8]  items-center align-middle justify-center  p-11 rounded-2xl space-y-8 h-full w-full">
+          <div className="bg-zinc-800 rounded-xl flex flex-col gap-y-8 size-full items-center align-middle justify-center  p-11">
+            <h1 className="text-3xl font-extrabold text-white">
+              Add a new Post
+            </h1>
+            <div className="form flex flex-col space-y-3 w-96">
+              <input
+                className="border border-white-950 bg-inherit rounded-xl p-2 text-white"
+                id="title"
+                placeholder="enter ur unique title"
+                onChange={handleChange}
+              ></input>
+              <textarea
+                id="body"
+                placeholder="enter ur body here"
+                className="border border-white-950 bg-inherit rounded-xl p-2 text-white h-64"
+                onChange={handleChange}
+              ></textarea>
+              <button className="bg-white p-2 rounded-xl" onClick={handlePost}>
+                submit
+              </button>
+            </div>
+          </div>
+          <div>
+            {isPostSelected && (
+              <div className="bg-zinc-800 rounded-xl w-full flex flex-col size-full items-center align-middle justify-center  p-11">
+                <h1 className="text-lg font-extrabold text-white">
+                  Editing post: {selectedPost?.id}
+                </h1>
+                <div className="form flex flex-col space-y-3 w-96">
+                  <input
+                    className="border border-white-950 bg-inherit rounded-xl p-2 text-white"
+                    id="title"
+                    placeholder="enter ur unique title"
+                    onChange={handleChange}
+                  ></input>
+                  <textarea
+                    id="body"
+                    placeholder="enter ur body here"
+                    className="border border-white-950 bg-inherit rounded-xl p-2 text-white"
+                    onChange={handleChange}
+                  ></textarea>
+                  <button
+                    className="bg-white p-2 rounded-xl"
+                    onClick={handlePost}
+                  >
+                    submit
+                  </button>
+                  <button
+                    className="bg-red-700 p-2 rounded-xl"
+                    onClick={handlePost}
+                  >
+                    delete
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>
