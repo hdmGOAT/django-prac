@@ -70,6 +70,8 @@ function App() {
       if (!response.ok) {
         throw new Error("Http error" + response.status);
       }
+
+      fetchData();
     } catch (error) {
       console.error("Error posting: ", error);
     }
