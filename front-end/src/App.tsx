@@ -22,8 +22,8 @@ function App() {
     },
   ]);
 
-  useEffect(() => {
-    fetch(`${API_URL}/posts/`)
+  const fetchData = async () => {
+    await fetch(`${API_URL}/posts/`)
       .then((response) => {
         if (!response.ok) {
           throw new Error("Http error" + response.status);
@@ -33,14 +33,28 @@ function App() {
       .then((data) => {
         setData(data);
       });
-  });
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   return (
-    <div>
-      {data &&
-        data.map((item, index: number) => (
-          <div key={item.id}>{item.title}</div>
-        ))}
+    <div className="flex items-center justify-center flex-col space-y-2 h-screen align-middle">
+      {data.length > 0 ? (
+        data.map((item) => (
+          <div className="flex text-white font-semibold font-serif flex-col bg-zinc-800 p-11 rounded-2xl">
+            <div className="flex" key={item.id}>
+              {item.title}
+            </div>
+            <div className="flex" key={item.id}>
+              {item.body}
+            </div>
+          </div>
+        ))
+      ) : (
+        <p>No data available</p>
+      )}
     </div>
   );
 }
