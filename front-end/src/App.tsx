@@ -4,7 +4,8 @@ import React, { ReactEventHandler, useEffect, useState } from "react";
   TO DO
 
   [/] Implement simple fetch / get function and map to screen
-  [] Implement post function
+  [/] Implement post function
+  [] make put and place work by clicking the specific functions
   [] Implement put and place functions
   [] implement delete
   [] play wiht file handling
@@ -29,6 +30,8 @@ function App() {
   ]);
 
   const [input, setInput] = useState<any>();
+
+  const [selectedPost, setSelectedPost] = useState<Post>();
 
   const handleChange = (
     e:
@@ -85,18 +88,24 @@ function App() {
     console.log(input);
   }, [input]);
 
+  useEffect(() => {
+    console.log(selectedPost);
+  }, [selectedPost]);
+
   return (
     <div className="main flex mx-16">
       <div className="flex flex-[2] items-center justify-center flex-col space-y-2 h-screen align-middle">
         {data.length > 0 ? (
           data.map((item) => (
-            <div className="flex text-white font-semibold font-serif flex-col bg-zinc-800 p-11 rounded-2xl">
-              <div className="flex" key={item.id}>
-                {item.title}
-              </div>
-              <div className="flex" key={item.id}>
-                {item.body}
-              </div>
+            <div
+              className="flex text-white font-semibold font-serif flex-col bg-zinc-800 p-11 rounded-2xl"
+              key={item.id}
+              onClick={() => {
+                setSelectedPost(item);
+              }}
+            >
+              <div className="flex">{item.title}</div>
+              <div className="flex">{item.body}</div>
             </div>
           ))
         ) : (
