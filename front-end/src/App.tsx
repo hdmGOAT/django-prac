@@ -174,7 +174,7 @@ function App() {
                     className="bg-white p-2 rounded-xl"
                     onClick={handlePost}
                   >
-                    submit
+                    PATCH
                   </button>
                   <button
                     className="bg-red-700 p-2 rounded-xl"
