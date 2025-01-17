@@ -148,7 +148,10 @@ function App() {
           </div>
           <div>
             {isPostSelected && (
-              <div className="bg-zinc-800 rounded-xl w-full flex flex-col size-full items-center align-middle justify-center  p-11">
+              <div
+                key={selectedPost?.id}
+                className="bg-zinc-800 rounded-xl w-full flex flex-col size-full items-center align-middle justify-center  p-11"
+              >
                 <h1 className="text-lg font-extrabold text-white">
                   Editing post: {selectedPost?.id}
                 </h1>
