@@ -34,6 +34,7 @@ function App() {
   const [selectedPost, setSelectedPost] = useState<Post | null>();
   const [isPostSelected, setIsPostSelected] = useState<Boolean>(false);
   const [file, setFile] = useState<File>();
+  const [uploadStatus, setUploadStatus] = useState<String>();
 
   const handleChange = (
     e:
@@ -158,6 +159,18 @@ function App() {
       setFile(file);
     }
   };
+
+  const handleUpload = async () => {
+    if (!file){
+      setUploadStatus("Please select a file to upload. ");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('file', file);
+
+    try
+  }
 
   useEffect(() => {
     fetchData();
