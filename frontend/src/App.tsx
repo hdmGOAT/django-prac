@@ -155,7 +155,7 @@ function App() {
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      console.log(file.name);
+      setFile(file);
     }
   };
 
@@ -189,7 +189,11 @@ function App() {
         <div className="flex flex-col flex-[8]  items-center align-middle justify-center  p-11 rounded-2xl space-y-8 h-full w-full">
           <div className="bg-zinc-800 rounded-xl flex flex-col gap-y-8 size-full items-center align-middle justify-center  p-11">
             <h1 className="text-3xl font-extrabold text-white">File upload</h1>
-            <input type="file" className="text-xl text-white" />
+            <input
+              type="file"
+              onChange={handleFileChange}
+              className="text-xl text-white"
+            />
           </div>
           <div className="bg-zinc-800 rounded-xl flex flex-col gap-y-8 size-full items-center align-middle justify-center  p-11">
             <h1 className="text-3xl font-extrabold text-white">
