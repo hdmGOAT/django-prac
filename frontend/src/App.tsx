@@ -5,8 +5,8 @@ import React, { ReactEventHandler, useEffect, useState } from "react";
 
   [/] Implement simple fetch / get function and map to screen
   [/] Implement post function
-  [] make put and place work by clicking the specific functions
-  [] Implement put and place functions
+  [/] make put and patch work by clicking the specific functions
+  [/] Implement put and place functions
   [] implement delete
   [] play wiht file handling
   [] use other python modules
@@ -131,6 +131,26 @@ function App() {
     }
   };
 
+  const handleDelete = async () => {
+    try {
+      const response = await fetch(`${API_URL}/posts/${selectedPost?.id}/`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error("Http error: " + response.status);
+      }
+      fetchData();
+      setSelectedPost(null);
+      setIsPostSelected(false);
+    } catch (err) {
+      console.error("Error deleting: ", err);
+    }
+  };
+
   useEffect(() => {
     fetchData();
   }, []);
@@ -213,7 +233,7 @@ function App() {
                   </button>
                   <button
                     className="bg-red-700 p-2 rounded-xl"
-                    onClick={handlePost}
+                    onClick={handleDelete}
                   >
                     delete
                   </button>
