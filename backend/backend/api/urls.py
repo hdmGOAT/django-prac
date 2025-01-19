@@ -8,5 +8,6 @@ router = DefaultRouter()
 router.registry.extend(post_router.registry)
 
 urlpatterns = [
-    path('', include(router.urls))
+    path('', include(router.urls)),
+    path('upload/', include('upload.urls'))
 ]
