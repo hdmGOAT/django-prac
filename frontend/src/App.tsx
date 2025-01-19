@@ -88,8 +88,8 @@ function App() {
 
       fetchData();
       setInput({
-        title: "",
-        body: "",
+        title: undefined,
+        body: undefined,
       });
     } catch (error) {
       console.error("Error posting: ", error);
@@ -160,7 +160,7 @@ function App() {
   }, [selectedPost]);
 
   return (
-    <div className="main flex mx-16">
+    <div className="main flex mx-16 ">
       <div className="flex flex-[2] items-center justify-center flex-col space-y-2 h-screen align-middle">
         {data.length > 0 ? (
           data.map((item) => (
@@ -179,6 +179,10 @@ function App() {
       </div>
       <div className="flex flex-[8] flex-col h-screen items-center align-middle justify-center w-full">
         <div className="flex flex-col flex-[8]  items-center align-middle justify-center  p-11 rounded-2xl space-y-8 h-full w-full">
+          <div className="bg-zinc-800 rounded-xl flex flex-col gap-y-8 size-full items-center align-middle justify-center  p-11">
+            <h1 className="text-3xl font-extrabold text-white">File upload</h1>
+            <input type="file" className="text-xl text-white" />
+          </div>
           <div className="bg-zinc-800 rounded-xl flex flex-col gap-y-8 size-full items-center align-middle justify-center  p-11">
             <h1 className="text-3xl font-extrabold text-white">
               Add a new Post
