@@ -34,7 +34,7 @@ function App() {
   const [selectedPost, setSelectedPost] = useState<Post | null>();
   const [isPostSelected, setIsPostSelected] = useState<Boolean>(false);
   const [file, setFile] = useState<File>();
-  const [uploadStatus, setUploadStatus] = useState<String>();
+  const [uploadStatus, setUploadStatus] = useState<String>("upload!");
 
   const handleChange = (
     e:
@@ -161,16 +161,34 @@ function App() {
   };
 
   const handleUpload = async () => {
-    if (!file){
+    if (!file) {
       setUploadStatus("Please select a file to upload. ");
       return;
     }
 
     const formData = new FormData();
-    formData.append('file', file);
+    formData.append("file", file);
 
-    try
-  }
+    try {
+      const response = await fetch(`${API_URL}/upload/`, {
+        method: "POST",
+        body: formData,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!response.ok) {
+        const data = await response.json();
+        setUploadStatus(data.message);
+      } else {
+        const errorData = await response.json();
+        setUploadStatus(`Error: ${errorData.error}`);
+      }
+    } catch (err) {
+      console.error("Error uploading file: ", err);
+    }
+  };
 
   useEffect(() => {
     fetchData();
@@ -207,6 +225,10 @@ function App() {
               onChange={handleFileChange}
               className="text-xl text-white"
             />
+            <button className="bg-white p-2 rounded-xl" onClick={handleUpload}>
+              Upload
+            </button>
+            <strong className="text-xl text-white">{uploadStatus}</strong>
           </div>
           <div className="bg-zinc-800 rounded-xl flex flex-col gap-y-8 size-full items-center align-middle justify-center  p-11">
             <h1 className="text-3xl font-extrabold text-white">
