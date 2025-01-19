@@ -87,18 +87,50 @@ function App() {
       }
 
       fetchData();
+      setInput({
+        title: "",
+        body: "",
+      });
     } catch (error) {
       console.error("Error posting: ", error);
+    }
+  };
+
+  const handlePatch = async () => {
+    const updateData: Partial<Post> = {};
+    if (input.title !== undefined) {
+      updateData.title = input.title;
+    }
+    if (input.body !== undefined) {
+      updateData.body = input.body;
+    }
+
+    try {
+      const response = await fetch(`${API_URL}/posts/${selectedPost?.id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(updateData),
+      });
+
+      console.log(input.title, input.body);
+
+      if (!response.ok) {
+        throw new Error("Http error: " + response.status);
+      }
+
+      fetchData();
+      setSelectedPost(null);
+      setInput({ title: "", body: "" });
+    } catch (error) {
+      console.error("error updating data: ", error);
     }
   };
 
   useEffect(() => {
     fetchData();
   }, []);
-
-  useEffect(() => {
-    console.log(input);
-  }, [input]);
 
   useEffect(() => {
     console.log(selectedPost);
@@ -172,7 +204,7 @@ function App() {
                   ></textarea>
                   <button
                     className="bg-white p-2 rounded-xl"
-                    onClick={handlePost}
+                    onClick={handlePatch}
                   >
                     PATCH
                   </button>
