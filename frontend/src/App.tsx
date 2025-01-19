@@ -106,13 +106,15 @@ function App() {
     }
 
     try {
-      const response = await fetch(`${API_URL}/posts/${selectedPost?.id}`, {
+      const response = await fetch(`${API_URL}/posts/${selectedPost?.id}/`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(updateData),
       });
+
+      console.log(JSON.stringify(updateData));
 
       console.log(input.title, input.body);
 
@@ -122,7 +124,8 @@ function App() {
 
       fetchData();
       setSelectedPost(null);
-      setInput({ title: "", body: "" });
+      setIsPostSelected(false);
+      setInput({ title: undefined, body: undefined });
     } catch (error) {
       console.error("error updating data: ", error);
     }
