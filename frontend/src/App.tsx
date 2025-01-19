@@ -1,4 +1,4 @@
-import React, { ReactEventHandler, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 /*
   TO DO
@@ -7,7 +7,7 @@ import React, { ReactEventHandler, useEffect, useState } from "react";
   [/] Implement post function
   [/] make put and patch work by clicking the specific functions
   [/] Implement put and place functions
-  [] implement delete
+  [/] implement delete
   [] play wiht file handling
   [] use other python modules
 */
