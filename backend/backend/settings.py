@@ -16,6 +16,12 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
+import os
+
+MEDIA_URL = '/media/'  # URL for accessing uploaded files in development
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # Absolute path to the media directory
+
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 

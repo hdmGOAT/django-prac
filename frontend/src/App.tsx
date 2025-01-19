@@ -173,12 +173,9 @@ function App() {
       const response = await fetch(`${API_URL}/upload/`, {
         method: "POST",
         body: formData,
-        headers: {
-          "Content-Type": "application/json",
-        },
       });
 
-      if (!response.ok) {
+      if (response.ok) {
         const data = await response.json();
         setUploadStatus(data.message);
       } else {
