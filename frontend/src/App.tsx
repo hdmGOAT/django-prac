@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { ReactHTMLElement, useEffect, useState } from "react";
 
 /*
   TO DO
@@ -33,6 +33,7 @@ function App() {
 
   const [selectedPost, setSelectedPost] = useState<Post | null>();
   const [isPostSelected, setIsPostSelected] = useState<Boolean>(false);
+  const [file, setFile] = useState<File>();
 
   const handleChange = (
     e:
@@ -148,6 +149,13 @@ function App() {
       setIsPostSelected(false);
     } catch (err) {
       console.error("Error deleting: ", err);
+    }
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      console.log(file.name);
     }
   };
 
